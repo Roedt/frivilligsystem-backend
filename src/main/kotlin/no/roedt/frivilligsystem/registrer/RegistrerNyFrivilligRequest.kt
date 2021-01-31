@@ -1,8 +1,8 @@
 package no.roedt.frivilligsystem.registrer
 
 import io.quarkus.runtime.annotations.RegisterForReflection
-import no.roedt.ringesentralen.Postnummer
-import no.roedt.ringesentralen.Telefonnummer
+import no.roedt.frivilligsystem.Postnummer
+import no.roedt.frivilligsystem.Telefonnummer
 
 @RegisterForReflection
 data class RegistrerNyFrivilligRequest(

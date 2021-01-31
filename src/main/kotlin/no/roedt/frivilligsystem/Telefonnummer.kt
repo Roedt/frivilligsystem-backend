@@ -1,4 +1,4 @@
-package no.roedt.ringesentralen
+package no.roedt.frivilligsystem
 
 import io.quarkus.runtime.annotations.RegisterForReflection
 

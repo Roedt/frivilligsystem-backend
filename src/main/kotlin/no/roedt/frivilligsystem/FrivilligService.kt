@@ -2,8 +2,6 @@ package no.roedt.frivilligsystem
 
 import no.roedt.frivilligsystem.registrer.ErMedlemStatus
 import no.roedt.frivilligsystem.registrer.RegistrerNyFrivilligRequest
-import no.roedt.ringesentralen.Postnummer
-import no.roedt.ringesentralen.Telefonnummer
 import javax.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
@@ -24,7 +22,8 @@ class FrivilligService(val frivilligRepository: FrivilligRepository) {
             andreTingDuVilBidraMed = null,
             fortellLittOmDegSelv = null,
             hypersysID = null,
-            lokallag = Lokallag(name = "Grorud")
+            lokallag = Lokallag(name = "Grorud"),
+            rolle = Rolle.frivillig
         ))
         frivillige.add(Frivillig(
             navn = "Ola Nordmann",
@@ -38,7 +37,8 @@ class FrivilligService(val frivilligRepository: FrivilligRepository) {
             andreTingDuVilBidraMed = null,
             fortellLittOmDegSelv = null,
             lokallag = Lokallag(name = "Grorud"),
-            hypersysID = 1
+            hypersysID = 1,
+            rolle = Rolle.frivillig
         ))
         frivillige.add(Frivillig(
             navn = "Bengt Medelsvensson",
@@ -52,7 +52,8 @@ class FrivilligService(val frivilligRepository: FrivilligRepository) {
             andreTingDuVilBidraMed = null,
             fortellLittOmDegSelv = null,
             lokallag = null,
-            hypersysID = null
+            hypersysID = null,
+            rolle = Rolle.frivillig
         ))
         return frivillige
     }
@@ -70,7 +71,8 @@ class FrivilligService(val frivilligRepository: FrivilligRepository) {
             andreTingDuVilBidraMed = request.andreTingDuVilBidraMed,
             fortellLittOmDegSelv = request.fortellLittOmDegSelv,
             hypersysID = null, //TODO,
-            lokallag = getLokallagFraPostnummer(request.postnummer)
+            lokallag = getLokallagFraPostnummer(request.postnummer),
+            rolle = Rolle.frivillig
         )
         frivillige.add(frivillig)
         frivilligRepository.persist(frivillig)

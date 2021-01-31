@@ -1,10 +1,10 @@
-package no.roedt.ringesentralen.token
+package no.roedt.frivilligsystem.token
 
 import io.smallrye.jwt.build.Jwt
 import no.roedt.frivilligsystem.Frivillig
 import no.roedt.frivilligsystem.FrivilligRepository
 import no.roedt.frivilligsystem.Rolle
-import no.roedt.ringesentralen.hypersys.*
+import no.roedt.frivilligsystem.hypersys.*
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.eclipse.microprofile.jwt.JsonWebToken
 import java.time.Duration
@@ -57,6 +57,7 @@ class TokenGenerator(
                     Rolle.sentralt -> setOf(Rolle.lokallag.name, Rolle.distrikt.name, Rolle.sentralt.name)
                     Rolle.distrikt -> setOf(Rolle.lokallag.name, Rolle.distrikt.name)
                     Rolle.lokallag -> setOf(Rolle.lokallag.name)
+                    Rolle.frivillig -> setOf(Rolle.frivillig.name)
                 }
             }
             .orElse(setOf())

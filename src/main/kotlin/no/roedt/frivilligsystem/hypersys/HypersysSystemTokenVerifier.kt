@@ -1,6 +1,6 @@
-package no.roedt.ringesentralen.hypersys
+package no.roedt.frivilligsystem.hypersys
 
-import no.roedt.ringesentralen.token.GCPSecretManager
+import no.roedt.frivilligsystem.token.GCPSecretManager
 import javax.annotation.PostConstruct
 import javax.enterprise.context.ApplicationScoped
 

@@ -1,11 +1,11 @@
-package no.roedt.ringesentralen.hypersys
+package no.roedt.frivilligsystem.hypersys
 
-import no.roedt.ringesentralen.Brukarinformasjon
-import no.roedt.ringesentralen.Fylke
-import no.roedt.ringesentralen.Postnummer
-import no.roedt.ringesentralen.Telefonnummer
-import no.roedt.ringesentralen.hypersys.externalModel.Profile
-import no.roedt.ringesentralen.hypersys.externalModel.User
+import no.roedt.frivilligsystem.Brukarinformasjon
+import no.roedt.frivilligsystem.Fylke
+import no.roedt.frivilligsystem.Postnummer
+import no.roedt.frivilligsystem.Telefonnummer
+import no.roedt.frivilligsystem.hypersys.externalModel.Profile
+import no.roedt.frivilligsystem.hypersys.externalModel.User
 import javax.enterprise.context.Dependent
 import javax.persistence.EntityManager
 

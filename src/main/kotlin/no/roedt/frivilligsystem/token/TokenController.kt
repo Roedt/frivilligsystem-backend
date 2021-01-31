@@ -1,6 +1,6 @@
-package no.roedt.ringesentralen.token
+package no.roedt.frivilligsystem.token
 
-import no.roedt.ringesentralen.hypersys.LoginRequest
+import no.roedt.frivilligsystem.hypersys.LoginRequest
 import org.eclipse.microprofile.jwt.JsonWebToken
 import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement
 import org.eclipse.microprofile.openapi.annotations.tags.Tag

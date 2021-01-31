@@ -1,9 +1,9 @@
-package no.roedt.ringesentralen.hypersys
+package no.roedt.frivilligsystem.hypersys
 
-import no.roedt.ringesentralen.Brukarinformasjon
-import no.roedt.ringesentralen.DatabaseUpdater
-import no.roedt.ringesentralen.hypersys.externalModel.Profile
-import no.roedt.ringesentralen.token.GCPSecretManager
+import no.roedt.frivilligsystem.Brukarinformasjon
+import no.roedt.frivilligsystem.DatabaseUpdater
+import no.roedt.frivilligsystem.hypersys.externalModel.Profile
+import no.roedt.frivilligsystem.token.GCPSecretManager
 import javax.enterprise.context.Dependent
 
 @Dependent

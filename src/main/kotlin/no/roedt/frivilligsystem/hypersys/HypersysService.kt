@@ -1,8 +1,8 @@
-package no.roedt.ringesentralen.hypersys
+package no.roedt.frivilligsystem.hypersys
 
-import no.roedt.ringesentralen.hypersys.externalModel.Organisasjonsledd
-import no.roedt.ringesentralen.hypersys.externalModel.Organs
-import no.roedt.ringesentralen.hypersys.externalModel.SingleOrgan
+import no.roedt.frivilligsystem.hypersys.externalModel.Organisasjonsledd
+import no.roedt.frivilligsystem.hypersys.externalModel.Organs
+import no.roedt.frivilligsystem.hypersys.externalModel.SingleOrgan
 import org.eclipse.microprofile.jwt.JsonWebToken
 import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject

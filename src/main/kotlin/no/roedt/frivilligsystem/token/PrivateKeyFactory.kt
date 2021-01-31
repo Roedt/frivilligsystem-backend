@@ -1,4 +1,4 @@
-package no.roedt.ringesentralen.token
+package no.roedt.frivilligsystem.token
 
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import java.nio.file.Files
