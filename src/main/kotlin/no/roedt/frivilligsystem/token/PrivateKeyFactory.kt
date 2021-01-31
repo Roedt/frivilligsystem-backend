@@ -19,7 +19,7 @@ class PrivateKeyFactory(private val gcpSecretManager: GCPSecretManager) {
 
     private fun getPrivateKey(): String =
         if (usePrivateKeyFromSecretManager.toBoolean()) gcpSecretManager.getPrivateKeyFromSecretManager()
-        else Files.readString(Path.of("../src/main/resources/META-INF/resources/privatekey.pem"))
+        else Files.readString(Path.of("../src/main/resources/META-INF/resources/privateKey.pem"))
 
     private fun readPrivateKey(key: String): RSAPrivateKey {
         val privateKeyPEM = key

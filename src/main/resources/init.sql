@@ -98,13 +98,17 @@ CREATE TABLE IF NOT EXISTS `frivillig` (
   `telefonnummer` varchar(15) NOT NULL UNIQUE,
   `postnummer` varchar(4) DEFAULT NULL,
   `hypersysID` int(6) unsigned DEFAULT NULL,
-  `lokallag` int(3) unsigned DEFAULT NULL,
-  `alleredeAktiv` bit,
-  `medlem` int,
-  FOREIGN KEY(`lokallag`) REFERENCES `lokallag` (`id`),
+  `lokallag_id` int(3) unsigned DEFAULT NULL,
+  `alleredeAktivILokallag` bit,
+  `medlemIRoedt` int,
+  `spesiellKompetanse` varchar(300) DEFAULT NULL,
+  `andreTingDuVilBidraMed` varchar(300) DEFAULT NULL,
+  `fortellLittOmDegSelv` varchar(300) DEFAULT NULL,
+  `rolle` int,
+  FOREIGN KEY(`lokallag_id`) REFERENCES `lokallag` (`id`),
   FOREIGN KEY(`postnummer`) REFERENCES `postnumber` (`postnumber`),
   INDEX (`telefonnummer`),
-  INDEX (`lokallag`),
+  INDEX (`lokallag_id`),
   INDEX (`postnummer`)
 );
 
