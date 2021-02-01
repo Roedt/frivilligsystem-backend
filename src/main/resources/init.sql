@@ -35,17 +35,31 @@ INSERT INTO `fylker` (`id`, `name`) VALUES
 (19, 'Troms'),
 (20, 'Finnmark'),
 (21, 'Svalbard'),
-(50, 'Trøndelag');
+(30, 'Viken'),
+(34, 'Innlandet'),
+(38, 'Vestfold og Telemark'),
+(42, 'Agder'),
+(46, 'Vestland'),
+(50, 'Trøndelag'),
+(54, 'Troms og Finnmark');
 
+-- --------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS `postnumber` (
-  `postnumber` varchar(4) PRIMARY KEY NOT NULL,
-  `postplace` varchar(250) NOT NULL,
-  `countyID` int(2) NOT NULL,
-  `municipalityID` int(2) NOT NULL,
-  `municipality` varchar(30) NOT NULL,
-  INDEX(`countyID`),
-  FOREIGN KEY (`countyID`) REFERENCES `fylker`(`id`)
+CREATE TABLE postnummer(
+   POSTNR                  INTEGER  NOT NULL PRIMARY KEY
+  ,POSTSTAD                VARCHAR(39) NOT NULL
+  ,POSTNR_OG_STAD          VARCHAR(44) NOT NULL
+  ,BRUKSOMRÅDE             VARCHAR(38) NOT NULL
+  ,FOLKETAL                INTEGER
+  ,BYDEL                   VARCHAR(17)
+  ,KOMMNR                  INTEGER  NOT NULL
+  ,KOMMUNE                 VARCHAR(15) NOT NULL
+  ,FYLKE                   VARCHAR(20) NOT NULL
+  ,LAT                     NUMERIC(10,6) NOT NULL
+  ,LON                     NUMERIC(9,6) NOT NULL
+  ,DATAKVALITET            INTEGER
+  ,DATAKVALITETSFORKLARING VARCHAR(48)
+  ,SIST_OPPDATERT          VARCHAR(19) NOT NULL
 );
 
 -- --------------------------------------------------------
@@ -96,12 +110,12 @@ CREATE TABLE IF NOT EXISTS `person` (
   `navn` varchar(150) DEFAULT NULL,
   `epost` varchar(100) DEFAULT NULL,
   `telefonnummer` varchar(15) NOT NULL UNIQUE,
-  `postnummer` varchar(4) DEFAULT NULL,
+  `postnummer` integer DEFAULT NULL,
   `hypersysID` int(6) unsigned DEFAULT NULL UNIQUE,
   `lokallag_id` int(3) unsigned DEFAULT NULL,
   `rolle` varchar(20) DEFAULT NULL,
   FOREIGN KEY(`lokallag_id`) REFERENCES `lokallag` (`id`),
-  FOREIGN KEY(`postnummer`) REFERENCES `postnumber` (`postnumber`),
+  FOREIGN KEY(`postnummer`) REFERENCES `postnummer` (`postnummer`),
   INDEX (`telefonnummer`),
   INDEX (`lokallag_id`),
   INDEX (`postnummer`)

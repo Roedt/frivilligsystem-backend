@@ -3,6 +3,8 @@ package no.roedt.frivilligsystem
 import no.roedt.frivilligsystem.kontakt.AutentisertRegistrerKontaktRequest
 import no.roedt.frivilligsystem.kontakt.Kontakt
 import no.roedt.frivilligsystem.kontakt.KontaktRepository
+import no.roedt.frivilligsystem.postnummer.Postnummer
+import no.roedt.frivilligsystem.postnummer.PostnummerRepository
 import no.roedt.frivilligsystem.registrer.RegistrerNyFrivilligRequest
 import javax.enterprise.context.ApplicationScoped
 
@@ -10,7 +12,8 @@ import javax.enterprise.context.ApplicationScoped
 class FrivilligService(
     val frivilligRepository: FrivilligRepository,
     val personRepository: PersonRepository,
-    val kontaktRepository: KontaktRepository
+    val kontaktRepository: KontaktRepository,
+    val postnummerRepository: PostnummerRepository
 ) {
     fun hentAlle(userId: UserId): List<Frivillig> = frivilligRepository.findAll().list()
 
@@ -42,7 +45,8 @@ class FrivilligService(
         rolle = Rolle.frivillig
     )
 
-    private fun getLokallagFraPostnummer(postnummer: Postnummer): Lokallag? {
+    private fun getLokallagFraPostnummer(postnummer: PostnummerDTO): Lokallag? {
+        val postnr = postnummerRepository.find("postnr", postnummer.postnummer.toInt()).firstResult<Postnummer>()
         return null //Lokallag(name = "Bjerke")
         //TODO("Not yet implemented")
     }
@@ -50,9 +54,9 @@ class FrivilligService(
     fun registrerKontakt(request: AutentisertRegistrerKontaktRequest) =
         kontaktRepository.persist(
             Kontakt(
-            frivillig_id = request.request.frivillig_id,
-            tilbakemelding = request.request.tilbakemelding,
-            registrert_av = personRepository.find("hypersysID", request.userId.userId).firstResult<Person>().id
-        )
+                frivillig_id = request.request.frivillig_id,
+                tilbakemelding = request.request.tilbakemelding,
+                registrert_av = personRepository.find("hypersysID", request.userId.userId).firstResult<Person>().id
+            )
         )
 }

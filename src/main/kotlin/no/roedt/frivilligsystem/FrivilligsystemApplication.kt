@@ -19,7 +19,9 @@ import javax.ws.rs.core.Application
             url = "http://github.com/roedt/frivilligsystem-backend"),
         license = License(
             name = "MIT License",
-            url = "https://github.com/Roedt/frivilligsystem-backend/blob/main/LICENSE"))
+            url = "https://github.com/Roedt/frivilligsystem-backend/blob/main/LICENSE"),
+        description = "Takk til Erik Bolstad for postnummer. http://www.erikbolstad.no/geo/noreg/postnummer/"
+    )
 )
 @SecurityScheme(
     securitySchemeName = "jwt",

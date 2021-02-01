@@ -11,8 +11,8 @@ import javax.persistence.*
 data class Person (
     var navn: String,
     var epost: String,
-    var telefonnummer: Int, //TODO typ
-    var postnummer: Int, //TODO typ
+    var telefonnummer: Int,
+    var postnummer: Int,
     var hypersysID: Int?,
     @Enumerated(EnumType.STRING)
     var rolle: Rolle,

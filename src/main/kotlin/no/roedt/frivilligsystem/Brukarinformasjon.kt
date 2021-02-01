@@ -9,6 +9,6 @@ data class Brukarinformasjon(
         val etternamn: String,
         val epost: String,
         val telefonnummer: Telefonnummer,
-        val postnummer: Postnummer,
+        val postnummer: PostnummerDTO,
         val fylke: Fylke
 )
