@@ -38,7 +38,7 @@ class HypersysLoginBean(
                         "epost = '${person.epost}'," +
                         "telefonnummer = ${person.telefonnummer}," +
                         "postnummer = ${person.postnummer}," +
-                        "rolle = ${person.rolle}," +
+                        "rolle = '${person.rolle.name}'," +
                         "lokallag = ${person.lokallag} " +
                         "where hypersysID = ${person.hypersysID}"
             )
