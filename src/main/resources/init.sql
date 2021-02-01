@@ -91,25 +91,33 @@ END //
 
 -- --------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS `frivillig` (
+CREATE TABLE IF NOT EXISTS `person` (
   `id` int(6) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `navn` varchar(150) DEFAULT NULL,
   `epost` varchar(100) DEFAULT NULL,
   `telefonnummer` varchar(15) NOT NULL UNIQUE,
   `postnummer` varchar(4) DEFAULT NULL,
-  `hypersysID` int(6) unsigned DEFAULT NULL,
+  `hypersysID` int(6) unsigned DEFAULT NULL UNIQUE,
   `lokallag_id` int(3) unsigned DEFAULT NULL,
-  `alleredeAktivILokallag` bit,
-  `medlemIRoedt` int,
-  `spesiellKompetanse` varchar(300) DEFAULT NULL,
-  `andreTingDuVilBidraMed` varchar(300) DEFAULT NULL,
-  `fortellLittOmDegSelv` varchar(300) DEFAULT NULL,
   `rolle` int,
   FOREIGN KEY(`lokallag_id`) REFERENCES `lokallag` (`id`),
   FOREIGN KEY(`postnummer`) REFERENCES `postnumber` (`postnumber`),
   INDEX (`telefonnummer`),
   INDEX (`lokallag_id`),
   INDEX (`postnummer`)
+);
+-- --------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `frivillig` (
+  `id` int(6) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `person_id` int(6) unsigned,
+  `alleredeAktivILokallag` bit,
+  `medlemIRoedt` int,
+  `spesiellKompetanse` varchar(300) DEFAULT NULL,
+  `andreTingDuVilBidraMed` varchar(300) DEFAULT NULL,
+  `fortellLittOmDegSelv` varchar(300) DEFAULT NULL,
+  FOREIGN KEY(`person_id`) REFERENCES `person` (`id`),
+  INDEX (`person_id`)
 );
 
 

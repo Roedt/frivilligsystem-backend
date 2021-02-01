@@ -10,6 +10,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken
 import java.time.Duration
 import javax.enterprise.context.RequestScoped
 import javax.json.JsonNumber
+import javax.transaction.Transactional
 import kotlin.math.max
 
 
@@ -51,7 +52,9 @@ class TokenGenerator(
         .sign(privateKeyFactory.readPrivateKey())
 
     private fun getGroups(hypersysToken: GyldigPersonToken): Set<String> =
-        getPersonFromHypersysID(hypersysToken).map { x -> x.rolle }
+        getPersonFromHypersysID(hypersysToken)
+            .map { it.person }
+            .map { it.rolle }
             .map{ rolle ->
                 when (rolle) {
                     Rolle.sentralt -> setOf(Rolle.lokallag.name, Rolle.distrikt.name, Rolle.sentralt.name)

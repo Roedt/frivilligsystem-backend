@@ -1,18 +1,21 @@
 package no.roedt.frivilligsystem.hypersys
 
-import no.roedt.frivilligsystem.Brukarinformasjon
-import no.roedt.frivilligsystem.DatabaseUpdater
+import no.roedt.frivilligsystem.*
 import no.roedt.frivilligsystem.hypersys.externalModel.Profile
 import no.roedt.frivilligsystem.token.GCPSecretManager
 import javax.enterprise.context.Dependent
+import javax.transaction.TransactionManager
+import javax.transaction.Transactional
 
 @Dependent
 class HypersysLoginBean(
     private val hypersysProxy: HypersysProxy,
     private val databaseUpdater: DatabaseUpdater,
     private val modelConverter: ModelConverter,
-    private val gcpSecretManager: GCPSecretManager
+    private val gcpSecretManager: GCPSecretManager,
+    private val personRepository: PersonRepository
 ) {
+
     fun login(loginRequest: LoginRequest): Token {
         val brukarId = gcpSecretManager.getHypersysBrukerId()
         val brukarSecret = gcpSecretManager.getHypersysBrukerSecret()
@@ -30,16 +33,16 @@ class HypersysLoginBean(
         val profile: Profile = hypersysProxy.get("actor/api/profile/", token, Profile::class.java)
         val brukarinformasjon: Brukarinformasjon = modelConverter.convert(profile)
 
-       //TODO: databaseUpdater.update(brukarinformasjon.toSQL())
+        personRepository.persist(brukarinformasjon.toPerson())
     }
 
-    private fun Brukarinformasjon.toSQL(): String = "CALL sp_registrerNyBruker(" +
-            "'${hypersysID}', " +
-            "'${fornamn}', " +
-            "'${etternamn}', " +
-            "'${telefonnummer.nummer}', " +
-            "'${epost}', " +
-            "${postnummer.postnummer}, " +
-            "${fylke.nr}" +
-            ")"
+    private fun Brukarinformasjon.toPerson() : Person = Person(
+        hypersysID = hypersysID,
+        navn = "$fornamn $etternamn",
+        epost = epost,
+        telefonnummer = telefonnummer.nummer,
+        postnummer = postnummer.getPostnummer(),
+        rolle = Rolle.lokallag, //TODO
+        lokallag = null
+    )
 }

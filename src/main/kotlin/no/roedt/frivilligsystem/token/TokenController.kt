@@ -7,6 +7,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag
 import javax.annotation.security.PermitAll
 import javax.annotation.security.RolesAllowed
 import javax.inject.Inject
+import javax.transaction.Transactional
 import javax.ws.rs.POST
 import javax.ws.rs.Path
 import javax.ws.rs.Produces
@@ -26,6 +27,7 @@ class TokenController(val tokenGenerator: TokenGenerator) {
     @POST
     @Path("/login")
     @Produces(MediaType.TEXT_PLAIN)
+    @Transactional
     fun login(loginRequest: LoginRequest): String = tokenGenerator.login(loginRequest)
 
     @RolesAllowed("ringar")
