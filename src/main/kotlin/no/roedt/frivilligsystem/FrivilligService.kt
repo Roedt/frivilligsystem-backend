@@ -8,40 +8,38 @@ class FrivilligService(
     val frivilligRepository: FrivilligRepository,
     val personRepository: PersonRepository
 ) {
-
-    val frivillige = mutableListOf<Frivillig>()
-
-    fun hentAlle(userId: UserId): List<Frivillig> {
-        return frivillige
-    }
+    fun hentAlle(userId: UserId): List<Frivillig> = frivilligRepository.findAll().list()
 
     fun registrerNyFrivillig(request: RegistrerNyFrivilligRequest): Frivillig {
-        val person = Person(
-            navn = request.navn,
-            epost = request.epost,
-            telefonnummer = request.telefonnummer.nummer,
-            postnummer = request.postnummer.getPostnummer(),
-            hypersysID = null, //TODO,
-            lokallag = getLokallagFraPostnummer(request.postnummer),
-            rolle = Rolle.frivillig
-        )
+        val person = request.toPerson()
+        personRepository.save(person)
         val frivillig = Frivillig(
             alleredeAktivILokallag = request.alleredeAktivILokallag,
             medlemIRoedt = request.medlemIRoedt,
-       //     kanTenkeSegAaBidraMedAktiviteter = request.kanTenkeSegAaBidraMedAktiviteter,
+            //     kanTenkeSegAaBidraMedAktiviteter = request.kanTenkeSegAaBidraMedAktiviteter,
             spesiellKompetanse = request.spesiellKompetanse,
             andreTingDuVilBidraMed = request.andreTingDuVilBidraMed,
             fortellLittOmDegSelv = request.fortellLittOmDegSelv,
         )
-        personRepository.persist(person)
-        frivillig.person = person
-        frivillige.add(frivillig)
+            .apply {
+                this.person = personRepository.find("epost", person.epost).firstResult()
+            }
         frivilligRepository.persist(frivillig)
         return frivillig
     }
 
+    private fun RegistrerNyFrivilligRequest.toPerson() = Person(
+        navn = navn,
+        epost = epost,
+        telefonnummer = telefonnummer.nummer,
+        postnummer = postnummer.getPostnummer(),
+        hypersysID = null, //TODO,
+        lokallag = getLokallagFraPostnummer(postnummer),
+        rolle = Rolle.frivillig
+    )
+
     private fun getLokallagFraPostnummer(postnummer: Postnummer): Lokallag? {
-        return Lokallag(name = "Bjerke")
+        return null //Lokallag(name = "Bjerke")
         //TODO("Not yet implemented")
     }
 }

@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `person` (
 
 CREATE TABLE IF NOT EXISTS `frivillig` (
   `id` int(6) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `person_id` int(6) unsigned,
+  `person_id` int(6) unsigned UNIQUE,
   `alleredeAktivILokallag` bit,
   `medlemIRoedt` int,
   `spesiellKompetanse` varchar(300) DEFAULT NULL,
@@ -120,6 +120,12 @@ CREATE TABLE IF NOT EXISTS `frivillig` (
   INDEX (`person_id`)
 );
 
+-- --------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `hibernate_sequence` (
+    `next_val` int
+);
+INSERT INTO `hibernate_sequence`(`next_val`) values (1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -31,21 +31,7 @@ class HypersysLoginBean(
         val profile: Profile = hypersysProxy.get("actor/api/profile/", token, Profile::class.java)
         val brukarinformasjon: Brukarinformasjon = modelConverter.convert(profile)
 
-        val person = brukarinformasjon.toPerson()
-        if (personRepository.find("hypersysID", person.hypersysID).count() > 0L) {
-            personRepository.update(
-                "navn = '${person.navn}', " +
-                        "epost = '${person.epost}'," +
-                        "telefonnummer = ${person.telefonnummer}," +
-                        "postnummer = ${person.postnummer}," +
-                        "rolle = '${person.rolle.name}'," +
-                        "lokallag = ${person.lokallag} " +
-                        "where hypersysID = ${person.hypersysID}"
-            )
-        }
-        else {
-            personRepository.persist(person)
-        }
+        personRepository.save(brukarinformasjon.toPerson())
     }
 
     private fun Brukarinformasjon.toPerson() : Person = Person(

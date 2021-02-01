@@ -1,13 +1,12 @@
 package no.roedt.frivilligsystem
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import io.quarkus.runtime.annotations.RegisterForReflection
 
 @RegisterForReflection
-data class Postnummer(val postnummer: String) {
-    init {
-        require(postnummer.length == 4)
-    }
-
-    fun getPostnummer()= Integer.parseInt(postnummer)
-
+data class Postnummer(
+    @JsonProperty("postnummer") var postnummer: String
+)
+{
+    fun getPostnummer() = Integer.parseInt(postnummer)
 }

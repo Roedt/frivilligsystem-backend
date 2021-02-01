@@ -9,6 +9,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag
 import javax.annotation.security.PermitAll
 import javax.annotation.security.RolesAllowed
 import javax.inject.Inject
+import javax.transaction.Transactional
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
 import javax.ws.rs.core.MediaType
@@ -38,6 +39,7 @@ class FrivilligController(val frivilligService: FrivilligService) {
     @Path("/registrer")
     @Operation(summary = "Registrer ny frivillig")
     @Retry
+    @Transactional
     fun registrerNyFrivillig(@Context ctx: SecurityContext, registrerNyFrivilligRequest: RegistrerNyFrivilligRequest): Frivillig = frivilligService.registrerNyFrivillig(registrerNyFrivilligRequest)
 
     fun SecurityContext.userId(): UserId = UserId((userPrincipal as JsonWebToken).claim<Any>("hypersys.user_id").get().toString().toInt())

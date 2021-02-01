@@ -1,19 +1,20 @@
 package no.roedt.frivilligsystem.registrer
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import io.quarkus.runtime.annotations.RegisterForReflection
 import no.roedt.frivilligsystem.Postnummer
 import no.roedt.frivilligsystem.Telefonnummer
 
 @RegisterForReflection
 data class RegistrerNyFrivilligRequest(
-    val navn: String,
-    val epost: String,
-    val telefonnummer: Telefonnummer,
-    val postnummer: Postnummer,
-    val alleredeAktivILokallag: Boolean,
-    val medlemIRoedt: ErMedlemStatus,
-    val kanTenkeSegAaBidraMedAktiviteter: List<Aktivitet>,
-    val spesiellKompetanse: String?,
-    val andreTingDuVilBidraMed: String?,
-    val fortellLittOmDegSelv: String?
+    @JsonProperty("navn") var navn: String,
+    @JsonProperty("epost") var epost: String,
+    @JsonProperty("telefonnummer") var telefonnummer: Telefonnummer,
+    @JsonProperty("postnummer") var postnummer: Postnummer,
+    @JsonProperty("alleredeAktivILokallag") var alleredeAktivILokallag: Boolean,
+    @JsonProperty("medlemIRoedt") var medlemIRoedt: ErMedlemStatus,
+    @JsonProperty("kanTenkeSegAaBidraMedAktiviteter") var kanTenkeSegAaBidraMedAktiviteter: List<Aktivitet>,
+    @JsonProperty("spesiellKompetanse") var spesiellKompetanse: String?,
+    @JsonProperty("andreTingDuVilBidraMed") var andreTingDuVilBidraMed: String?,
+    @JsonProperty("fortellLittOmDegSelv") var fortellLittOmDegSelv: String?
 )

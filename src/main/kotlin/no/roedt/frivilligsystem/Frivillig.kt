@@ -13,12 +13,12 @@ import javax.persistence.Table
 @Cacheable
 @RegisterForReflection
 data class Frivillig(
-    val alleredeAktivILokallag: Boolean,
-    val medlemIRoedt: ErMedlemStatus,
+    var alleredeAktivILokallag: Boolean,
+    var medlemIRoedt: ErMedlemStatus,
     //TODO: val kanTenkeSegAaBidraMedAktiviteter: List<Aktivitet>,
-    val spesiellKompetanse: String?,
-    val andreTingDuVilBidraMed: String?,
-    val fortellLittOmDegSelv: String?,
+    var spesiellKompetanse: String?,
+    var andreTingDuVilBidraMed: String?,
+    var fortellLittOmDegSelv: String?,
 ) : PanacheEntity()
 {
     @OneToOne
