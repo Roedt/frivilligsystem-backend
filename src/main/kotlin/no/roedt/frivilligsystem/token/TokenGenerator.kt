@@ -1,8 +1,8 @@
 package no.roedt.frivilligsystem.token
 
 import io.smallrye.jwt.build.Jwt
-import no.roedt.frivilligsystem.Frivillig
-import no.roedt.frivilligsystem.FrivilligRepository
+import no.roedt.frivilligsystem.Person
+import no.roedt.frivilligsystem.PersonRepository
 import no.roedt.frivilligsystem.Rolle
 import no.roedt.frivilligsystem.hypersys.*
 import org.eclipse.microprofile.config.inject.ConfigProperty
@@ -10,14 +10,13 @@ import org.eclipse.microprofile.jwt.JsonWebToken
 import java.time.Duration
 import javax.enterprise.context.RequestScoped
 import javax.json.JsonNumber
-import javax.transaction.Transactional
 import kotlin.math.max
 
 
 @RequestScoped
 class TokenGenerator(
     private val hypersysService: HypersysService,
-    private val frivilligRepository: FrivilligRepository,
+    private val personRepository: PersonRepository,
     private val privateKeyFactory: PrivateKeyFactory
 ) {
 
@@ -53,7 +52,6 @@ class TokenGenerator(
 
     private fun getGroups(hypersysToken: GyldigPersonToken): Set<String> =
         getPersonFromHypersysID(hypersysToken)
-            .map { it.person }
             .map { it.rolle }
             .map{ rolle ->
                 when (rolle) {
@@ -66,7 +64,7 @@ class TokenGenerator(
             .orElse(setOf())
 
     private fun getPersonFromHypersysID(hypersysToken: GyldigPersonToken) =
-        frivilligRepository.find("hypersysID", hypersysToken.user_id.toInt()).firstResultOptional<Frivillig>()
+        personRepository.find("hypersysID", hypersysToken.user_id.toInt()).firstResultOptional<Person>()
 
     fun refresh(jwt: JsonWebToken): String = generateToken(
         GyldigPersonToken(

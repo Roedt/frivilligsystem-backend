@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `person` (
   `postnummer` varchar(4) DEFAULT NULL,
   `hypersysID` int(6) unsigned DEFAULT NULL UNIQUE,
   `lokallag_id` int(3) unsigned DEFAULT NULL,
-  `rolle` int,
+  `rolle` varchar(20) DEFAULT NULL,
   FOREIGN KEY(`lokallag_id`) REFERENCES `lokallag` (`id`),
   FOREIGN KEY(`postnummer`) REFERENCES `postnumber` (`postnumber`),
   INDEX (`telefonnummer`),

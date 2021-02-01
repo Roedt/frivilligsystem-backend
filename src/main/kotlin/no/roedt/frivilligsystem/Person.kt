@@ -19,7 +19,7 @@ data class Person (
     @ManyToOne
     var lokallag: Lokallag?,
 ) : PanacheEntity() {
-  /*  constructor(): this(
+  constructor(): this(
         navn = "",
         epost = "",
         telefonnummer = 0,
@@ -27,5 +27,5 @@ data class Person (
         hypersysID = null,
         rolle = Rolle.frivillig,
         lokallag = null
-    )*/
+    )
 }

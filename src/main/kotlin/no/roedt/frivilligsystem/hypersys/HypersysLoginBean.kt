@@ -4,8 +4,6 @@ import no.roedt.frivilligsystem.*
 import no.roedt.frivilligsystem.hypersys.externalModel.Profile
 import no.roedt.frivilligsystem.token.GCPSecretManager
 import javax.enterprise.context.Dependent
-import javax.transaction.TransactionManager
-import javax.transaction.Transactional
 
 @Dependent
 class HypersysLoginBean(
@@ -33,7 +31,21 @@ class HypersysLoginBean(
         val profile: Profile = hypersysProxy.get("actor/api/profile/", token, Profile::class.java)
         val brukarinformasjon: Brukarinformasjon = modelConverter.convert(profile)
 
-        personRepository.persist(brukarinformasjon.toPerson())
+        val person = brukarinformasjon.toPerson()
+        if (personRepository.find("hypersysID", person.hypersysID).count() > 0L) {
+            personRepository.update(
+                "navn = '${person.navn}', " +
+                        "epost = '${person.epost}'," +
+                        "telefonnummer = ${person.telefonnummer}," +
+                        "postnummer = ${person.postnummer}," +
+                        "rolle = ${person.rolle}," +
+                        "lokallag = ${person.lokallag} " +
+                        "where hypersysID = ${person.hypersysID}"
+            )
+        }
+        else {
+            personRepository.persist(person)
+        }
     }
 
     private fun Brukarinformasjon.toPerson() : Person = Person(
