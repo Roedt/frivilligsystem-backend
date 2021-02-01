@@ -1,6 +1,7 @@
-package no.roedt.frivilligsystem
+package no.roedt.frivilligsystem.kontakt
 
 import io.quarkus.runtime.annotations.RegisterForReflection
+import no.roedt.frivilligsystem.UserId
 
 @RegisterForReflection
 data class AutentisertRegistrerKontaktRequest(

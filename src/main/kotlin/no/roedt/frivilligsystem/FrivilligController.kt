@@ -1,5 +1,7 @@
 package no.roedt.frivilligsystem
 
+import no.roedt.frivilligsystem.kontakt.AutentisertRegistrerKontaktRequest
+import no.roedt.frivilligsystem.kontakt.RegistrerKontaktRequest
 import no.roedt.frivilligsystem.registrer.RegistrerNyFrivilligRequest
 import org.eclipse.microprofile.faulttolerance.Retry
 import org.eclipse.microprofile.jwt.JsonWebToken
@@ -50,7 +52,9 @@ class FrivilligController(val frivilligService: FrivilligService) {
     @Operation(summary = "Registrer kontakt med frivillig")
     @Retry
     @Transactional
-    fun registrerKontakt(@Context ctx: SecurityContext, registrerKontaktRequest: RegistrerKontaktRequest) = frivilligService.registrerKontakt(AutentisertRegistrerKontaktRequest(userId = ctx.userId(), request = registrerKontaktRequest))
+    fun registrerKontakt(@Context ctx: SecurityContext, registrerKontaktRequest: RegistrerKontaktRequest) = frivilligService.registrerKontakt(
+        AutentisertRegistrerKontaktRequest(userId = ctx.userId(), request = registrerKontaktRequest)
+    )
 
     fun SecurityContext.userId(): UserId = UserId((userPrincipal as JsonWebToken).claim<Any>("hypersys.user_id").get().toString().toInt())
 }

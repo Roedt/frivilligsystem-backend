@@ -1,5 +1,8 @@
 package no.roedt.frivilligsystem
 
+import no.roedt.frivilligsystem.kontakt.AutentisertRegistrerKontaktRequest
+import no.roedt.frivilligsystem.kontakt.Kontakt
+import no.roedt.frivilligsystem.kontakt.KontaktRepository
 import no.roedt.frivilligsystem.registrer.RegistrerNyFrivilligRequest
 import javax.enterprise.context.ApplicationScoped
 
@@ -45,9 +48,11 @@ class FrivilligService(
     }
 
     fun registrerKontakt(request: AutentisertRegistrerKontaktRequest) =
-        kontaktRepository.persist(Kontakt(
+        kontaktRepository.persist(
+            Kontakt(
             frivillig_id = request.request.frivillig_id,
             tilbakemelding = request.request.tilbakemelding,
             registrert_av = personRepository.find("hypersysID", request.userId.userId).firstResult<Person>().id
-        ))
+        )
+        )
 }

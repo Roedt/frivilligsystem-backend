@@ -1,4 +1,4 @@
-package no.roedt.frivilligsystem
+package no.roedt.frivilligsystem.kontakt
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.quarkus.runtime.annotations.RegisterForReflection

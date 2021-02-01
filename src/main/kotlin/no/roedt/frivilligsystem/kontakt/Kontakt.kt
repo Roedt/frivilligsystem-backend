@@ -1,4 +1,4 @@
-package no.roedt.frivilligsystem
+package no.roedt.frivilligsystem.kontakt
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity
 import io.quarkus.runtime.annotations.RegisterForReflection
