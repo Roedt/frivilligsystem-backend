@@ -42,5 +42,15 @@ class FrivilligController(val frivilligService: FrivilligService) {
     @Transactional
     fun registrerNyFrivillig(@Context ctx: SecurityContext, registrerNyFrivilligRequest: RegistrerNyFrivilligRequest): Frivillig = frivilligService.registrerNyFrivillig(registrerNyFrivilligRequest)
 
+    @RolesAllowed("lokallag", "distrikt", "sentralt")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/registrerKontakt")
+    @Operation(summary = "Registrer kontakt med frivillig")
+    @Retry
+    @Transactional
+    fun registrerKontakt(@Context ctx: SecurityContext, registrerKontaktRequest: RegistrerKontaktRequest) = frivilligService.registrerKontakt(AutentisertRegistrerKontaktRequest(userId = ctx.userId(), request = registrerKontaktRequest))
+
     fun SecurityContext.userId(): UserId = UserId((userPrincipal as JsonWebToken).claim<Any>("hypersys.user_id").get().toString().toInt())
 }

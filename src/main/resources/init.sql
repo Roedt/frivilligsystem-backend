@@ -119,6 +119,19 @@ CREATE TABLE IF NOT EXISTS `frivillig` (
   FOREIGN KEY(`person_id`) REFERENCES `person` (`id`),
   INDEX (`person_id`)
 );
+-- --------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `kontakt` (
+  `id` int(6) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `registrert_av` int(6) unsigned,
+  `frivillig_id` int(6) unsigned,
+  `tilbakemelding` varchar(1000) DEFAULT NULL,
+  `registrert` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY(`frivillig_id`) REFERENCES `frivillig` (`id`),
+  INDEX (`frivillig_id`),
+  FOREIGN KEY(`registrert_av`) REFERENCES `person`(`id`),
+  INDEX(`registrert_av`)
+);
 
 -- --------------------------------------------------------
 

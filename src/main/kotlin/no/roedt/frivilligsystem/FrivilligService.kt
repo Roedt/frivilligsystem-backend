@@ -6,7 +6,8 @@ import javax.enterprise.context.ApplicationScoped
 @ApplicationScoped
 class FrivilligService(
     val frivilligRepository: FrivilligRepository,
-    val personRepository: PersonRepository
+    val personRepository: PersonRepository,
+    val kontaktRepository: KontaktRepository
 ) {
     fun hentAlle(userId: UserId): List<Frivillig> = frivilligRepository.findAll().list()
 
@@ -42,4 +43,11 @@ class FrivilligService(
         return null //Lokallag(name = "Bjerke")
         //TODO("Not yet implemented")
     }
+
+    fun registrerKontakt(request: AutentisertRegistrerKontaktRequest) =
+        kontaktRepository.persist(Kontakt(
+            frivillig_id = request.request.frivillig_id,
+            tilbakemelding = request.request.tilbakemelding,
+            registrert_av = personRepository.find("hypersysID", request.userId.userId).firstResult<Person>().id
+        ))
 }
