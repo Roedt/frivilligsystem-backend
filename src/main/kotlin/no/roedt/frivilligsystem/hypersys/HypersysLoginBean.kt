@@ -8,7 +8,6 @@ import javax.enterprise.context.Dependent
 @Dependent
 class HypersysLoginBean(
     private val hypersysProxy: HypersysProxy,
-    private val databaseUpdater: DatabaseUpdater,
     private val modelConverter: ModelConverter,
     private val gcpSecretManager: GCPSecretManager,
     private val personRepository: PersonRepository

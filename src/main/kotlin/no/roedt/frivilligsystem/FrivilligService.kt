@@ -37,7 +37,7 @@ class FrivilligService(
         epost = epost,
         telefonnummer = telefonnummer.nummer,
         postnummer = postnummer.getPostnummer(),
-        hypersysID = null, //TODO,
+        hypersysID = null,
         lokallag = getLokallagFraPostnummer(postnummer),
         rolle = Rolle.frivillig
     )
