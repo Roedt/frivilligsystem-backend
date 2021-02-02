@@ -12,7 +12,7 @@ import javax.ws.rs.core.Application
 
 @OpenAPIDefinition(
     info = Info(
-        title="Ringesentral-API",
+        title="Frivilligsystem-API",
         version = "1.0.0",
         contact = Contact(
             name = "Mads Opheim",
